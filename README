@@ -1,0 +1,16 @@
+Install
+
+1. Download and unpack casperjs and phantomjs
+2. Put casperjs and phantomjs in your path
+export PATH=$PATH:$(pwd)/casperjs/bin:$(pwd)/phantomjs/bin
+
+Running maps_directions.js with capser manually
+
+casperjs maps_directions.js "some start location" "some end location"
+Will produce directions.png with just the snippet of the top left of the google map with directions that shows time and distance
+
+Run the makemaps.py
+
+Just run makemaps.py
+It will create a maps_DD_MM_YYYY_HH_MM directory and put an image of each of the commute times called directions_#.png where the # is the index of the item in the makemaps.py end tuple(1-indexed)
+Then it will put all commute times in a nice csv file named DD_MM_YYYY_HH_MM.csv
