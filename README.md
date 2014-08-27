@@ -1,7 +1,11 @@
 Install
 
-1. Download and unpack casperjs and phantomjs
-2. Put casperjs and phantomjs in your path
+1. Download and unpack casperjs
+git clone https://github.com/n1k0/casperjs.git
+2. Install phantomjs
+wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.7-linux-x86_64.tar.bz2 -O - | tar xjvf -
+ln -s phantomjs-1.9.7* phantomjs
+3. Put casperjs and phantomjs in your path
 export PATH=$PATH:$(pwd)/casperjs/bin:$(pwd)/phantomjs/bin
 
 Running maps_directions.js with capser manually

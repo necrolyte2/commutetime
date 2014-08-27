@@ -23,24 +23,23 @@ now = datetime.now();
 nowstr = now.strftime('%d_%m_%Y_%H_%M')
 
 THIS = dirname(__file__)
-#os.environ['PATH'] += os.pathsep.join([join(THIS,pth,'bin') for pth in ('casperjs','phantomjs')])
-#print os.environ['PATH']
+os.environ['PATH'] += os.pathsep.join([join(THIS,pth,'bin') for pth in ('casperjs','phantomjs')])
 basecmd = 'casperjs maps_directions.js "{start}" "{end}"'
 
 mapdir = 'maps_{}'.format( nowstr )
 if not isdir(mapdir):
     os.makedirs(mapdir)
 
-def domap( start, end ):
+def domap( begin, end ):
     if exists('directions.png'):
         os.unlink('directions.png')
 
     # Will hold the output string of path,commutetime,distance
     sout, serr = (None,None)
     while True:
-        print "Getting commute time for {} to {}".format(start,to)
+        print "Getting commute time for {} to {}".format(begin,end)
         try:
-            p = subprocess.Popen( basecmd.format(start=start, end=to), shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE )
+            p = subprocess.Popen( basecmd.format(start=begin, end=end), shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE )
             sout, serr = p.communicate()
         except subprocess.CalledProcessError as e:
             print "Error? " + e.output
@@ -49,7 +48,7 @@ def domap( start, end ):
         # Check to see if the stupid wait timeout happened
         if exists('directions.png') and sout and 'Wait timeout of' not in sout and 'null' not in sout:
             shutil.copy( 'directions.png', join(mapdir,'directions_{}.png'.format(i) ) )
-            return '"{} to {}","'.format(start,to) + '","'.join( sout.rstrip().split(',') ) + '"'
+            return '"{} to {}","'.format(begin,end) + '","'.join( sout.rstrip().split(',') ) + '"'
         else:
             print "Trying again..."
             pass

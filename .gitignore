@@ -1,1 +1,4 @@
 *.png
+casperjs
+phantomjs*
+*.csv
