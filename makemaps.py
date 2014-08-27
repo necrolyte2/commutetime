@@ -68,3 +68,4 @@ for i, to in enumerate(ends,start=1):
 
 with open(nowstr+'.csv','w') as fh:
     fh.write( '\n'.join( outputs ) )
+    fh.write( '\n' )
