@@ -8,24 +8,21 @@ var casper = require('casper').create({
 });
 
 
-//var from = '946 19th Ave NE, Minneapolis, MN 55418';
-//var to = 'Eden Prairie, MN';
+// Command line arguments
 var from = casper.cli.get(0);
 var to = casper.cli.get(1);
 
-/*
-casper.on('remote.message', function(msg) {
-    this.echo('remote message caught: ' + msg);
-})
-*/
-
 casper.start()
+// Fake Chrome browser
 casper.userAgent('Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36');
+// Open maps.google.com
 casper.thenOpen('http://maps.google.com', function() {
 });
+// Wait for the search box to show up
 casper.waitForSelector('input.tactile-searchbox-input', function() {
 	this.click('input.tactile-searchbox-input');
 });
+// Wait for the dropdown list to show up then enter in the search
 casper.waitForSelector('div.cards-expanded', function() {
 	this.evaluate(function(from, to) {
 		// This is the inital search box
@@ -38,15 +35,16 @@ casper.waitForSelector('div.cards-expanded', function() {
 		document.getElementsByClassName('searchbutton')[1].click()
 	*/
 	}, from, to);
-	this.capture( 'step1.png' );
 });
+// Click the search button after entrying in our search
 casper.waitForSelector('button.searchbutton', function() {
 	this.click( 'button.searchbutton' )
 });
+// Wait for the directions list to show up
 casper.waitForSelector('div.gsq_a', function() {
 	this.click('div.gsq_a');
 });
-//casper.waitForSelector('div.cards-directions-body', function() {
+// Wait 5 seconds for the page to load then capture the left corner of the screen
 casper.wait(5000);
 casper.then(function() {
 	this.capture( 'directions.png', {
@@ -56,8 +54,10 @@ casper.then(function() {
 		height: 480 
 	});
 });
+// Capture commute time, distance and summary and echo them to terminal
 casper.wait(1000, function() {
 	var time = this.evaluate(function() {
+        // This is wrong if the traffic is heavy. It would change traffic-light-text to traffic-medium-text or traffic-heavy-text
 		comtime = document.getElementsByClassName('cards-directions-traffic-light-text')[0].innerHTML;	
         dist = document.getElementsByClassName('cards-directions-details cards-directions-distance')[0].innerHTML;
         path = document.getElementsByClassName('cards-directions-summary')[0].childNodes[0].childNodes[2].childNodes[1].innerHTML;
