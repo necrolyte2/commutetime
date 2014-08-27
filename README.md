@@ -31,3 +31,5 @@ Run the makemaps.py
 Just run makemaps.py
 It will create a maps_DD_MM_YYYY_HH_MM directory and put an image of each of the commute times called directions_#.png where the # is the index of the item in the makemaps.py end tuple(1-indexed)
 Then it will put all commute times in a nice csv file named DD_MM_YYYY_HH_MM.csv
+
+You can also add cron.sh to your crontab and run it every 15 minutes and it will just keep compiling results into this directory
