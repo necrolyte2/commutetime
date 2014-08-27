@@ -5,6 +5,7 @@ from os.path import *
 import subprocess
 from datetime import datetime
 import shutil
+import sys
 
 start = "946 19th Ave NE, Minneapolis, MN 55418"
 ends = (
@@ -22,8 +23,8 @@ ends = (
 now = datetime.now();
 nowstr = now.strftime('%d_%m_%Y_%H_%M')
 
-THIS = dirname(__file__)
-os.environ['PATH'] += os.pathsep.join([join(THIS,pth,'bin') for pth in ('casperjs','phantomjs')])
+THIS = dirname(abspath(__file__))
+os.environ['PATH'] += os.pathsep + os.pathsep.join([join(THIS,pth,'bin') for pth in ('casperjs','phantomjs')])
 basecmd = 'casperjs maps_directions.js "{start}" "{end}"'
 
 mapdir = 'maps_{}'.format( nowstr )
@@ -44,6 +45,10 @@ def domap( begin, end ):
         except subprocess.CalledProcessError as e:
             print "Error? " + e.output
             continue
+        except OSError as e:
+            if e.errno == 2:
+                print "Is casperjs and phantomjs in your environment's PATH?"
+                sys.exit(-1)
 
         # Check to see if the stupid wait timeout happened
         if exists('directions.png') and sout and 'Wait timeout of' not in sout and 'null' not in sout:
