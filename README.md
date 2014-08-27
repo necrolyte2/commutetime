@@ -1,16 +1,29 @@
 Install
 
 1. Download and unpack casperjs
-git clone https://github.com/n1k0/casperjs.git
+    
+    ```
+    git clone https://github.com/n1k0/casperjs.git
+    ```
+    
 2. Install phantomjs
-wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.7-linux-x86_64.tar.bz2 -O - | tar xjvf -
-ln -s phantomjs-1.9.7* phantomjs
+    
+    ```
+    wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.7-linux-x86_64.tar.bz2 -O - | tar xjvf -
+    ln -s phantomjs-1.9.7* phantomjs
+    ```
 3. Put casperjs and phantomjs in your path
-export PATH=$PATH:$(pwd)/casperjs/bin:$(pwd)/phantomjs/bin
+    
+    ```
+    export PATH=$PATH:$(pwd)/casperjs/bin:$(pwd)/phantomjs/bin
+    ```
 
 Running maps_directions.js with capser manually
 
+```
 casperjs maps_directions.js "some start location" "some end location"
+```
+
 Will produce directions.png with just the snippet of the top left of the google map with directions that shows time and distance
 
 Run the makemaps.py
