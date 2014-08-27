@@ -33,3 +33,9 @@ It will create a maps_DD_MM_YYYY_HH_MM directory and put an image of each of the
 Then it will put all commute times in a nice csv file named DD_MM_YYYY_HH_MM.csv
 
 You can also add cron.sh to your crontab and run it every 15 minutes and it will just keep compiling results into this directory
+
+
+TODO:
+
+* Instead of individual csv files for every run, might be nice to put the data into a sqlite db
+* Look into using Google Maps API instead of this silly capserjs/phantomjs business

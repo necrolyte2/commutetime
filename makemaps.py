@@ -51,9 +51,9 @@ def domap( begin, end ):
                 sys.exit(-1)
 
         # Check to see if the stupid wait timeout happened
-        if exists('directions.png') and sout and 'Wait timeout of' not in sout and 'null' not in sout:
+        if exists('directions.png') and sout and 'timeout of' not in sout and 'null' not in sout:
             shutil.copy( 'directions.png', join(mapdir,'directions_{}.png'.format(i) ) )
-            return '"{} to {}","'.format(begin,end) + '","'.join( sout.rstrip().split(',') ) + '"'
+            return '"{} to {}","'.format(begin,end) + '","'.join( sout.rstrip().split(',') ) + '","' + nowstr + '"'
         else:
             print "Trying again..."
             pass
