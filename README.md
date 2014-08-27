@@ -37,5 +37,6 @@ You can also add cron.sh to your crontab and run it every 15 minutes and it will
 
 TODO:
 
+* Implmenent Transit commute time too
 * Instead of individual csv files for every run, might be nice to put the data into a sqlite db
 * Look into using Google Maps API instead of this silly capserjs/phantomjs business
